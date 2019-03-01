@@ -49,7 +49,7 @@ public class AdminController {
             return null;
         }
     }
-    // might need to return String
+    // does not work
     @DeleteMapping("/zoos/{id}")
     public Zoo deleteZooById(@PathVariable long id) throws URISyntaxException {
         var deleteZoo = zoorepos.findById(id);
@@ -89,7 +89,7 @@ public class AdminController {
             return null;
         }
     }
-    // might need to return String
+    // works ?
     @DeleteMapping("/phones/{id}")
     public Telephone deleteTelephone(@PathVariable long id) throws URISyntaxException {
         var deleteTelephone = telephonerepos.findById(id);
@@ -119,7 +119,7 @@ public class AdminController {
             return null;
         }
     }
-    // might need to return Strin
+    // does not work
     @DeleteMapping("/animals/{id}")
     public Animal deleteAnimal(@PathVariable long id) throws URISyntaxException {
         var deleteAnimal = animalrepos.findById(id);
