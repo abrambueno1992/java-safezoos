@@ -1,13 +1,10 @@
 package com.abrahambueno.javasafezoos.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "animal")
+//@Table(name = "animal")
 public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,18 +12,14 @@ public class Animal {
 
     private String animaltype;
 
-//    @ManyToMany
-//    @JoinTable(name = "animalzoos",
-//    joinColumns = {@JoinColumn(name = "animalid")},
-//            inverseJoinColumns = {@JoinColumn(name = "zooid")})
-//    @JsonIgnoreProperties("animals")
-//    private Set<Zoo> zoos = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "zooanimals",
+            joinColumns ={@JoinColumn(name = "animalid")},
+            inverseJoinColumns = {@JoinColumn(name = "zooid")})
+    private Set<Zoo> zoos;
 
     public Animal() {
     }
-    @ManyToMany
-    @JsonIgnoreProperties("animals")
-    private Set<Zoo> zoos = new HashSet<>();
 
     public long getAnimalid() {
         return animalid;
@@ -51,4 +44,11 @@ public class Animal {
     public void setZoos(Set<Zoo> zoos) {
         this.zoos = zoos;
     }
+    //    public Set<Zoo> getZoos() {
+//        return zoos;
+//    }
+//
+//    public void setZoos(Set<Zoo> zoos) {
+//        this.zoos = zoos;
+//    }
 }

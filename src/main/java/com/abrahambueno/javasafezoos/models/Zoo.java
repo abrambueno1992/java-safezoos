@@ -3,11 +3,10 @@ package com.abrahambueno.javasafezoos.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "zoo")
+//@Table(name = "zoo")
 public class Zoo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,38 +15,20 @@ public class Zoo {
     private String zooname;
 
     @OneToMany(mappedBy = "zooidtwo")
-    @JsonIgnoreProperties("zoo")
+    @JsonIgnoreProperties("zooidtwo")
     private Set<Telephone> phones;
 
-//    @ManyToMany(mappedBy = "zooid")
-//    @ManyToOne
-//    @JoinColumn(name = "phoneid")
-//    @JsonIgnoreProperties("zoos")
-//    private Telephone telephone;
 
-//    @ManyToOne
-//    @JoinColumn(name = "zooid")
-//    @JsonIgnoreProperties("zoos")
-//    private Zoo zootwo;
-@ManyToMany
-@JoinTable(
-        name = "telephoneNumbers",
-        joinColumns = {@JoinColumn(name = "zooid")},
-        inverseJoinColumns = {@JoinColumn(name = "phoneid")})
+@ManyToMany(cascade = CascadeType.ALL, mappedBy = "zoos")
 @JsonIgnoreProperties("zoos")
-private Set<Animal> animals = new HashSet<>();
+private Set<Animal> animals;
 
     public Zoo() {
     }
 
-//    public Zoo(String zooname, Set<Telephone> phones, Set<Animal> animals) {
-//        this.zooname = zooname;
-//        this.phones = phones;
-//        this.animals = animals;
-//    }
-
 
     public long getZooid() {
+
         return zooid;
     }
 

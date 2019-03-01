@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
-//@RestController
-@RequestMapping(path = "/admin/", produces = MediaType.APPLICATION_JSON_VALUE)
+@RestController
+@RequestMapping(value = "/admin/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminController {
     @Autowired
     ZooRepository zoorepos;
@@ -30,6 +30,8 @@ public class AdminController {
         return zoorepos.save(zoo);
     }
 //    @PostMapping("/zoos/animals")
+
+    // works
     @PutMapping("/zoos/{id}")
     public Zoo changeZoo(@RequestBody Zoo zoo, @PathVariable long id) throws URISyntaxException {
         Optional<Zoo> updateZoo = zoorepos.findById(id);
@@ -67,11 +69,19 @@ public class AdminController {
     public Telephone addTelephone(@RequestBody Telephone phone) throws URISyntaxException {
         return telephonerepos.save(phone);
     }
+
+    // works
     @PutMapping("/phones/{id}")
     public Telephone changePhone(@RequestBody Telephone phone, @PathVariable long id) throws URISyntaxException {
         Optional<Telephone> updatePhone = telephonerepos.findById(id);
         if (updatePhone.isPresent()) {
-            // not sure wether to think about relation
+            if (phone.getZooidtwo() == null) {
+                phone.setZooidtwo(updatePhone.get().getZooidtwo());
+            }
+            if (phone.getPhonenumber() == null) {
+                phone.setPhonenumber(updatePhone.get().getPhonenumber());
+            }
+
             phone.setPhoneid(id);
             telephonerepos.save(phone);
             return phone;
@@ -94,11 +104,14 @@ public class AdminController {
     public Animal addAnimal(@RequestBody Animal animal) {
         return animalrepos.save(animal);
     }
+    // works now
     @PutMapping("/animals/{id}")
     public Animal changeAnimal(@RequestBody Animal animal, @PathVariable long id) throws URISyntaxException {
         Optional<Animal> updateAnimal = animalrepos.findById(id);
         if (updateAnimal.isPresent()) {
-            // not sure whether to have other relations
+            if (animal.getZoos() == null) {
+                animal.setZoos(updateAnimal.get().getZoos());
+            }
             animal.setAnimalid(id);
             animalrepos.save(animal);
             return animal;

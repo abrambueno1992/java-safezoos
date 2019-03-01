@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = {}, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/zoos/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ZooController {
     @Autowired
     ZooRepository zoorepos;
 
-    @GetMapping("/zoos/zoos")
+    @GetMapping("/zoos")
     public List<Zoo> getZoos() {
         return zoorepos.findAll();
     }
-    @GetMapping("/zoos/{name}")
-    public Zoo getZooByName(@PathVariable String  name) {
-        return zoorepos.findByZooname(name);
+    @GetMapping("/{name}")
+    public List<Zoo> getZooByName(@PathVariable String  name) {
+        return zoorepos.findByZoonameEquals(name);
     }
 
 }

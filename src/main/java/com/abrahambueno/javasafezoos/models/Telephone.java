@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "telephone")
+//@Table(name = "telephone")
 public class Telephone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +23,6 @@ public class Telephone {
 
     public Telephone() {
     }
-
-//    public Telephone(String phonetype, String phonenumber, Zoo zooidtwo) {
-//        this.phonetype = phonetype;
-//        this.phonenumber = phonenumber;
-//        this.zooidtwo = zooidtwo;
-//    }
 
     public long getPhoneid() {
         return phoneid;
